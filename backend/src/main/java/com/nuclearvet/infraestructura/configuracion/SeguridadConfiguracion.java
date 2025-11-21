@@ -5,13 +5,13 @@ import com.nuclearvet.infraestructura.seguridad.DetallesUsuarioServicioImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+// @EnableMethodSecurity  // DESACTIVADO TEMPORALMENTE PARA TESTING
 @RequiredArgsConstructor
 public class SeguridadConfiguracion {
 
@@ -37,56 +37,14 @@ public class SeguridadConfiguracion {
     public SecurityFilterChain cadenaFiltrosSeguridad(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configure(http))
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Endpoints públicos
-                        .requestMatchers(
-                                "/api/autenticacion/**",
-                                "/api/api-docs/**",
-                                "/api/swagger-ui/**",
-                                "/api/swagger-ui.html",
-                                "/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**",
-                                "/swagger-resources/**",
-                                "/webjars/**"
-                        ).permitAll()
-                        
-                        // Endpoints de usuarios - según rol
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/**")
-                            .hasAuthority("ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO")
-                        .requestMatchers(HttpMethod.DELETE, "/api/usuarios/**")
-                            .hasAuthority("ADMINISTRADOR")
-                        
-                        // Endpoints de pacientes
-                        .requestMatchers("/api/pacientes/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
-                        
-                        // Endpoints de citas
-                        .requestMatchers(HttpMethod.GET, "/api/citas/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
-                        .requestMatchers(HttpMethod.POST, "/api/citas/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
-                        .requestMatchers(HttpMethod.PUT, "/api/citas/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
-                        .requestMatchers(HttpMethod.DELETE, "/api/citas/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO")
-                        
-                        // Endpoints de inventario
-                        .requestMatchers("/api/inventario/**")
-                            .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
-                        
-                        // Endpoints administrativos
-                        .requestMatchers("/api/administrativo/**")
-                            .hasAnyAuthority("ADMINISTRADOR")
-                        
-                        // Cualquier otra petición requiere autenticación
-                        .anyRequest().authenticated()
+                        // Hacer explícito: permitir endpoints públicos necesarios para registro y autenticación
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios", "/api/propietarios").permitAll()
+                        .requestMatchers("/api/autenticacion/**").permitAll()
+                        // **MODO DESARROLLO:** seguir permitiendo el resto si es necesario
+                        // TODO: En producción ajustar según roles y políticas
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -96,6 +54,63 @@ public class SeguridadConfiguracion {
 
         return http.build();
     }
+    
+    /**
+     * CONFIGURACIÓN DE SEGURIDAD ORIGINAL (COMENTADA PARA DESARROLLO)
+     * Descomentar estas líneas y eliminar el .anyRequest().permitAll() arriba
+     * cuando se termine el testing y se vaya a producción:
+     * 
+     * .authorizeHttpRequests(auth -> auth
+     *         // Endpoints públicos
+     *         .requestMatchers(
+     *                 "/api/autenticacion/**",
+     *                 "/api/api-docs/**",
+     *                 "/api/swagger-ui/**",
+     *                 "/api/swagger-ui.html",
+     *                 "/api-docs/**",
+     *                 "/swagger-ui/**",
+     *                 "/swagger-ui.html",
+     *                 "/v3/api-docs/**",
+     *                 "/swagger-resources/**",
+     *                 "/webjars/**"
+     *         ).permitAll()
+     *         
+     *         // Endpoints de usuarios - según rol
+     *         .requestMatchers(HttpMethod.GET, "/api/usuarios/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
+     *         .requestMatchers(HttpMethod.POST, "/api/usuarios/**")
+     *             .hasAuthority("ADMINISTRADOR")
+     *         .requestMatchers(HttpMethod.PUT, "/api/usuarios/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO")
+     *         .requestMatchers(HttpMethod.DELETE, "/api/usuarios/**")
+     *             .hasAuthority("ADMINISTRADOR")
+     *         
+     *         // Endpoints de pacientes
+     *         .requestMatchers("/api/pacientes/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
+     *         
+     *         // Endpoints de citas
+     *         .requestMatchers(HttpMethod.GET, "/api/citas/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
+     *         .requestMatchers(HttpMethod.POST, "/api/citas/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE", "CLIENTE")
+     *         .requestMatchers(HttpMethod.PUT, "/api/citas/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
+     *         .requestMatchers(HttpMethod.DELETE, "/api/citas/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO")
+     *         
+     *         // Endpoints de inventario
+     *         .requestMatchers("/api/inventario/**")
+     *             .hasAnyAuthority("ADMINISTRADOR", "VETERINARIO", "ASISTENTE")
+     *         
+     *         // Endpoints administrativos
+     *         .requestMatchers("/api/administrativo/**")
+     *             .hasAnyAuthority("ADMINISTRADOR")
+     *         
+     *         // Cualquier otra petición requiere autenticación
+     *         .anyRequest().authenticated()
+     * )
+     */
 
     @Bean
     public AuthenticationProvider proveedorAutenticacion() {

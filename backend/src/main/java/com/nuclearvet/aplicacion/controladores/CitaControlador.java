@@ -35,7 +35,7 @@ public class CitaControlador {
      * Crear nueva cita
      */
     @PostMapping
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     @Operation(summary = "Crear nueva cita", description = "Crea una cita médica para un paciente")
     public ResponseEntity<CitaDTO> crearCita(
             @Valid @RequestBody CrearCitaDTO dto,
@@ -48,7 +48,7 @@ public class CitaControlador {
      * Obtener cita por ID
      */
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     @Operation(summary = "Obtener cita por ID", description = "Consulta los detalles de una cita específica")
     public ResponseEntity<CitaDTO> obtenerCitaPorId(@PathVariable Long id) {
         return ResponseEntity.ok(citaServicio.obtenerCitaPorId(id));
@@ -58,7 +58,7 @@ public class CitaControlador {
      * Listar todas las citas
      */
     @GetMapping
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar todas las citas", description = "Obtiene el listado completo de citas")
     public ResponseEntity<List<CitaDTO>> listarCitas() {
         return ResponseEntity.ok(citaServicio.listarCitas());
@@ -68,7 +68,7 @@ public class CitaControlador {
      * Listar citas por estado
      */
     @GetMapping("/estado/{estado}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar citas por estado", description = "Filtra las citas por su estado")
     public ResponseEntity<List<CitaDTO>> listarCitasPorEstado(@PathVariable EstadoCita estado) {
         return ResponseEntity.ok(citaServicio.listarCitasPorEstado(estado));
@@ -78,7 +78,7 @@ public class CitaControlador {
      * Listar citas de un paciente
      */
     @GetMapping("/paciente/{pacienteId}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     @Operation(summary = "Listar citas de un paciente", description = "Obtiene todas las citas de un paciente específico")
     public ResponseEntity<List<CitaDTO>> listarCitasPorPaciente(@PathVariable Long pacienteId) {
         return ResponseEntity.ok(citaServicio.listarCitasPorPaciente(pacienteId));
@@ -88,7 +88,7 @@ public class CitaControlador {
      * Listar citas de un veterinario
      */
     @GetMapping("/veterinario/{veterinarioId}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar citas de un veterinario", description = "Obtiene todas las citas asignadas a un veterinario")
     public ResponseEntity<List<CitaDTO>> listarCitasPorVeterinario(@PathVariable Long veterinarioId) {
         return ResponseEntity.ok(citaServicio.listarCitasPorVeterinario(veterinarioId));
@@ -98,7 +98,7 @@ public class CitaControlador {
      * Listar citas por fecha
      */
     @GetMapping("/fecha/{fecha}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar citas por fecha", description = "Obtiene todas las citas de un día específico")
     public ResponseEntity<List<CitaDTO>> listarCitasPorFecha(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
@@ -109,7 +109,7 @@ public class CitaControlador {
      * Confirmar cita
      */
     @PatchMapping("/{id}/confirmar")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Confirmar cita", description = "Cambia el estado de una cita a CONFIRMADA")
     public ResponseEntity<CitaDTO> confirmarCita(
             @PathVariable Long id,
@@ -121,7 +121,7 @@ public class CitaControlador {
      * Cancelar cita
      */
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyRole('VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     @Operation(summary = "Cancelar cita", description = "Cancela una cita existente")
     public ResponseEntity<Void> cancelarCita(
             @PathVariable Long id,

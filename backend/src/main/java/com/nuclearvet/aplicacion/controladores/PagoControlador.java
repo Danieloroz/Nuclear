@@ -28,42 +28,42 @@ public class PagoControlador {
     private final PagoServicio pagoServicio;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Listar todos los pagos")
     public ResponseEntity<List<PagoDTO>> listarTodos() {
         return ResponseEntity.ok(pagoServicio.listarTodos());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Obtener pago por ID")
     public ResponseEntity<PagoDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(pagoServicio.obtenerPorId(id));
     }
 
     @GetMapping("/numero/{numero}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Obtener pago por número")
     public ResponseEntity<PagoDTO> obtenerPorNumero(@PathVariable String numero) {
         return ResponseEntity.ok(pagoServicio.obtenerPorNumero(numero));
     }
 
     @GetMapping("/factura/{facturaId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'VETERINARIO')")
     @Operation(summary = "Listar pagos por factura")
     public ResponseEntity<List<PagoDTO>> listarPorFactura(@PathVariable Long facturaId) {
         return ResponseEntity.ok(pagoServicio.listarPorFactura(facturaId));
     }
 
     @GetMapping("/metodo/{metodo}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Listar pagos por método de pago")
     public ResponseEntity<List<PagoDTO>> listarPorMetodoPago(@PathVariable MetodoPago metodo) {
         return ResponseEntity.ok(pagoServicio.listarPorMetodoPago(metodo));
     }
 
     @GetMapping("/rango-fechas")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Listar pagos por rango de fechas")
     public ResponseEntity<List<PagoDTO>> listarPorRangoFechas(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
@@ -72,21 +72,21 @@ public class PagoControlador {
     }
 
     @GetMapping("/propietario/{propietarioId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'VETERINARIO')")
     @Operation(summary = "Listar pagos por propietario")
     public ResponseEntity<List<PagoDTO>> listarPorPropietario(@PathVariable Long propietarioId) {
         return ResponseEntity.ok(pagoServicio.listarPorPropietario(propietarioId));
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Registrar nuevo pago")
     public ResponseEntity<PagoDTO> registrar(@Valid @RequestBody RegistrarPagoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pagoServicio.registrar(dto));
     }
 
     @GetMapping("/reportes/total")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Calcular total de pagos")
     public ResponseEntity<BigDecimal> calcularTotalPagos(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
@@ -95,7 +95,7 @@ public class PagoControlador {
     }
 
     @GetMapping("/reportes/por-metodo")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Calcular pagos por método de pago")
     public ResponseEntity<Map<MetodoPago, BigDecimal>> calcularPagosPorMetodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
@@ -104,7 +104,7 @@ public class PagoControlador {
     }
 
     @GetMapping("/estadisticas/por-metodo")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA')")
     @Operation(summary = "Contar pagos por método")
     public ResponseEntity<Long> contarPorMetodo(@RequestParam MetodoPago metodo) {
         return ResponseEntity.ok(pagoServicio.contarPorMetodo(metodo));

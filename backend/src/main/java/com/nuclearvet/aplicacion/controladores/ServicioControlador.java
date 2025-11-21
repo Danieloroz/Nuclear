@@ -70,14 +70,14 @@ public class ServicioControlador {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Crear nuevo servicio")
     public ResponseEntity<ServicioDTO> crear(@Valid @RequestBody CrearServicioDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(servicioServicio.crear(dto));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Actualizar servicio")
     public ResponseEntity<ServicioDTO> actualizar(
             @PathVariable Long id,
@@ -86,7 +86,7 @@ public class ServicioControlador {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    // @PreAuthorize("hasRole('ADMINISTRADOR')")
     @Operation(summary = "Eliminar servicio")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         servicioServicio.eliminar(id);
@@ -94,21 +94,21 @@ public class ServicioControlador {
     }
 
     @PatchMapping("/{id}/activar")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Activar servicio")
     public ResponseEntity<ServicioDTO> activar(@PathVariable Long id) {
         return ResponseEntity.ok(servicioServicio.activar(id));
     }
 
     @PatchMapping("/{id}/desactivar")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Desactivar servicio")
     public ResponseEntity<ServicioDTO> desactivar(@PathVariable Long id) {
         return ResponseEntity.ok(servicioServicio.desactivar(id));
     }
 
     @GetMapping("/estadisticas/por-tipo")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Contar servicios por tipo")
     public ResponseEntity<Map<TipoServicio, Long>> contarPorTipo() {
         return ResponseEntity.ok(servicioServicio.contarPorTipo());

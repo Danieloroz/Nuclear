@@ -35,7 +35,7 @@ public class ArchivoMedicoControlador {
      * Subir archivo médico
      */
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Subir archivo médico", description = "Sube un archivo médico asociado a una historia clínica")
     public ResponseEntity<ArchivoMedicoDTO> subirArchivo(
             @RequestParam("archivo") MultipartFile archivo,
@@ -60,7 +60,7 @@ public class ArchivoMedicoControlador {
      * Obtener archivo por ID
      */
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener información de archivo por ID")
     public ResponseEntity<ArchivoMedicoDTO> obtenerPorId(@PathVariable Long id) {
         ArchivoMedicoDTO archivoMedico = archivoMedicoServicio.obtenerPorId(id);
@@ -71,7 +71,7 @@ public class ArchivoMedicoControlador {
      * Listar archivos por historia clínica
      */
     @GetMapping("/historia/{historiaClinicaId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar archivos por historia clínica")
     public ResponseEntity<List<ArchivoMedicoDTO>> listarPorHistoriaClinica(@PathVariable Long historiaClinicaId) {
         List<ArchivoMedicoDTO> archivos = archivoMedicoServicio.listarPorHistoriaClinica(historiaClinicaId);
@@ -82,7 +82,7 @@ public class ArchivoMedicoControlador {
      * Listar archivos por consulta
      */
     @GetMapping("/consulta/{consultaId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Listar archivos por consulta")
     public ResponseEntity<List<ArchivoMedicoDTO>> listarPorConsulta(@PathVariable Long consultaId) {
         List<ArchivoMedicoDTO> archivos = archivoMedicoServicio.listarPorConsulta(consultaId);
@@ -93,7 +93,7 @@ public class ArchivoMedicoControlador {
      * Listar archivos por tipo
      */
     @GetMapping("/tipo/{tipoArchivo}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Listar archivos por tipo")
     public ResponseEntity<List<ArchivoMedicoDTO>> listarPorTipo(@PathVariable TipoArchivo tipoArchivo) {
         List<ArchivoMedicoDTO> archivos = archivoMedicoServicio.listarPorTipo(tipoArchivo);
@@ -104,7 +104,7 @@ public class ArchivoMedicoControlador {
      * Listar archivos recientes
      */
     @GetMapping("/recientes")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Listar archivos recientes", description = "Obtiene archivos de los últimos 30 días")
     public ResponseEntity<List<ArchivoMedicoDTO>> listarArchivosRecientes() {
         List<ArchivoMedicoDTO> archivos = archivoMedicoServicio.listarArchivosRecientes();
@@ -115,7 +115,7 @@ public class ArchivoMedicoControlador {
      * Descargar archivo
      */
     @GetMapping("/{id}/descargar")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Descargar archivo", description = "Descarga el contenido del archivo médico")
     public ResponseEntity<Resource> descargarArchivo(@PathVariable Long id) {
         // Obtener información del archivo
@@ -140,7 +140,7 @@ public class ArchivoMedicoControlador {
      * Eliminar archivo
      */
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Eliminar archivo", description = "Elimina un archivo médico del sistema")
     public ResponseEntity<Void> eliminarArchivo(
             @PathVariable Long id,

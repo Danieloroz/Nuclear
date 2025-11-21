@@ -26,14 +26,14 @@ class RecordatorioServicioTest {
     private RecordatorioServicio recordatorioServicio;
 
     @Test
-    void listarTodos_DeberiaInvocarRepositorio() {
+    void deberiaListarTodosInvocandoRepositorio() {
         when(recordatorioRepositorio.findAll()).thenReturn(Arrays.asList());
         recordatorioServicio.listarTodos();
         verify(recordatorioRepositorio, times(1)).findAll();
     }
 
     @Test
-    void listarPorPaciente_DeberiaInvocarRepositorio() {
+    void deberiaListarPorPacienteInvocandoRepositorio() {
         Long pacienteId = 1L;
         when(recordatorioRepositorio.findByPacienteConRelaciones(pacienteId)).thenReturn(Arrays.asList());
         recordatorioServicio.listarPorPaciente(pacienteId);
@@ -41,14 +41,14 @@ class RecordatorioServicioTest {
     }
 
     @Test
-    void listarPendientes_DeberiaInvocarRepositorio() {
+    void deberiaListarPendientesInvocandoRepositorio() {
         when(recordatorioRepositorio.findByEnviadoFalse()).thenReturn(Arrays.asList());
         recordatorioServicio.listarPendientes();
         verify(recordatorioRepositorio, times(1)).findByEnviadoFalse();
     }
 
     @Test
-    void listarPorTipo_DeberiaInvocarRepositorio() {
+    void deberiaListarPorTipoInvocandoRepositorio() {
         TipoRecordatorio tipo = TipoRecordatorio.VACUNA;
         when(recordatorioRepositorio.findByTipoRecordatorio(tipo)).thenReturn(Arrays.asList());
         recordatorioServicio.listarPorTipo(tipo);
@@ -56,7 +56,7 @@ class RecordatorioServicioTest {
     }
 
     @Test
-    void listarPendientesDeEnvio_DeberiaInvocarRepositorio() {
+    void deberiaListarPendientesDeEnvioInvocandoRepositorio() {
         when(recordatorioRepositorio.findRecordatoriosPendientesDeEnvio()).thenReturn(Arrays.asList());
         recordatorioServicio.listarPendientesDeEnvio();
         verify(recordatorioRepositorio, times(1)).findRecordatoriosPendientesDeEnvio();

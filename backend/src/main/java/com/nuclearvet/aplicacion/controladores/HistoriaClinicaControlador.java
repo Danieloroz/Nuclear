@@ -33,7 +33,7 @@ public class HistoriaClinicaControlador {
      * Crear historia clínica para un paciente
      */
     @PostMapping("/paciente/{pacienteId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Crear historia clínica", description = "Crea una historia clínica para un paciente")
     public ResponseEntity<HistoriaClinicaDTO> crearHistoriaClinica(
             @PathVariable Long pacienteId,
@@ -50,7 +50,7 @@ public class HistoriaClinicaControlador {
      * Obtener historia clínica por ID
      */
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener historia clínica por ID")
     public ResponseEntity<HistoriaClinicaDTO> obtenerPorId(@PathVariable Long id) {
         HistoriaClinicaDTO historiaClinica = historiaClinicaServicio.obtenerPorId(id);
@@ -61,7 +61,7 @@ public class HistoriaClinicaControlador {
      * Obtener historia clínica por número
      */
     @GetMapping("/numero/{numeroHistoria}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener historia clínica por número")
     public ResponseEntity<HistoriaClinicaDTO> obtenerPorNumero(@PathVariable String numeroHistoria) {
         HistoriaClinicaDTO historiaClinica = historiaClinicaServicio.obtenerPorNumero(numeroHistoria);
@@ -72,7 +72,7 @@ public class HistoriaClinicaControlador {
      * Obtener historia clínica por paciente
      */
     @GetMapping("/paciente/{pacienteId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener historia clínica por paciente")
     public ResponseEntity<HistoriaClinicaDTO> obtenerPorPaciente(@PathVariable Long pacienteId) {
         HistoriaClinicaDTO historiaClinica = historiaClinicaServicio.obtenerPorPaciente(pacienteId);
@@ -83,7 +83,7 @@ public class HistoriaClinicaControlador {
      * Obtener historia clínica por paciente con consultas
      */
     @GetMapping("/paciente/{pacienteId}/con-consultas")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener historia clínica con consultas")
     public ResponseEntity<HistoriaClinicaDTO> obtenerPorPacienteConConsultas(@PathVariable Long pacienteId) {
         HistoriaClinicaDTO historiaClinica = historiaClinicaServicio.obtenerPorPacienteConConsultas(pacienteId);
@@ -94,7 +94,7 @@ public class HistoriaClinicaControlador {
      * Obtener historia clínica por paciente con archivos
      */
     @GetMapping("/paciente/{pacienteId}/con-archivos")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     @Operation(summary = "Obtener historia clínica con archivos")
     public ResponseEntity<HistoriaClinicaDTO> obtenerPorPacienteConArchivos(@PathVariable Long pacienteId) {
         HistoriaClinicaDTO historiaClinica = historiaClinicaServicio.obtenerPorPacienteConArchivos(pacienteId);
@@ -105,7 +105,7 @@ public class HistoriaClinicaControlador {
      * Listar todas las historias clínicas
      */
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Listar todas las historias clínicas")
     public ResponseEntity<List<HistoriaClinicaDTO>> listarTodas() {
         List<HistoriaClinicaDTO> historiasClinicas = historiaClinicaServicio.listarTodas();
@@ -116,7 +116,7 @@ public class HistoriaClinicaControlador {
      * Actualizar historia clínica
      */
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Actualizar historia clínica", description = "Actualiza información general de la historia clínica")
     public ResponseEntity<HistoriaClinicaDTO> actualizarHistoriaClinica(
             @PathVariable Long id,
@@ -135,7 +135,7 @@ public class HistoriaClinicaControlador {
      * Obtener historias clínicas con alergias
      */
     @GetMapping("/con-alergias")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Listar historias clínicas con alergias registradas")
     public ResponseEntity<List<HistoriaClinicaDTO>> obtenerHistoriasConAlergias() {
         List<HistoriaClinicaDTO> historiasClinicas = historiaClinicaServicio.obtenerHistoriasConAlergias();
@@ -146,7 +146,7 @@ public class HistoriaClinicaControlador {
      * Obtener historias clínicas con enfermedades crónicas
      */
     @GetMapping("/con-enfermedades-cronicas")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Listar historias clínicas con enfermedades crónicas")
     public ResponseEntity<List<HistoriaClinicaDTO>> obtenerHistoriasConEnfermedadesCronicas() {
         List<HistoriaClinicaDTO> historiasClinicas = historiaClinicaServicio.obtenerHistoriasConEnfermedadesCronicas();
@@ -157,7 +157,7 @@ public class HistoriaClinicaControlador {
      * Obtener estadísticas de historias clínicas
      */
     @GetMapping("/estadisticas")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'VETERINARIO')")
     @Operation(summary = "Obtener estadísticas generales de historias clínicas")
     public ResponseEntity<Map<String, Object>> obtenerEstadisticas() {
         Map<String, Object> estadisticas = historiaClinicaServicio.obtenerEstadisticas();

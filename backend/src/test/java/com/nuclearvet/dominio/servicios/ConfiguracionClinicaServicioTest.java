@@ -26,7 +26,7 @@ class ConfiguracionClinicaServicioTest {
     private ConfiguracionClinicaServicio configuracionClinicaServicio;
 
     @Test
-    void obtenerConfiguracionActual_DeberiaInvocarRepositorio() {
+    void deberiaObtenerConfiguracionActualInvocandoRepositorio() {
         ConfiguracionClinica config = new ConfiguracionClinica();
         when(configuracionRepositorio.findConfiguracionActual()).thenReturn(Optional.of(config));
         configuracionClinicaServicio.obtenerConfiguracionActual();
@@ -34,7 +34,7 @@ class ConfiguracionClinicaServicioTest {
     }
 
     @Test
-    void obtenerPorId_DeberiaInvocarRepositorio() {
+    void deberiaObtenerPorIdInvocandoRepositorio() {
         Long id = 1L;
         ConfiguracionClinica config = new ConfiguracionClinica();
         when(configuracionRepositorio.findById(id)).thenReturn(Optional.of(config));

@@ -26,14 +26,14 @@ class HistorialCorreoServicioTest {
     private HistorialCorreoServicio historialCorreoServicio;
 
     @Test
-    void listarTodos_DeberiaInvocarRepositorio() {
+    void deberiaListarTodosInvocandoRepositorio() {
         when(historialCorreoRepositorio.findAll()).thenReturn(Arrays.asList());
         historialCorreoServicio.listarTodos();
         verify(historialCorreoRepositorio, times(1)).findAll();
     }
 
     @Test
-    void listarPorDestinatario_DeberiaInvocarRepositorio() {
+    void deberiaListarPorDestinatarioInvocandoRepositorio() {
         String email = "test@test.com";
         when(historialCorreoRepositorio.findByDestinatarioConPlantilla(email)).thenReturn(Arrays.asList());
         historialCorreoServicio.listarPorDestinatario(email);
@@ -41,7 +41,7 @@ class HistorialCorreoServicioTest {
     }
 
     @Test
-    void listarPorEstado_DeberiaInvocarRepositorio() {
+    void deberiaListarPorEstadoInvocandoRepositorio() {
         EstadoCorreo estado = EstadoCorreo.ENVIADO;
         when(historialCorreoRepositorio.findByEstado(estado)).thenReturn(Arrays.asList());
         historialCorreoServicio.listarPorEstado(estado);
@@ -49,14 +49,14 @@ class HistorialCorreoServicioTest {
     }
 
     @Test
-    void listarPendientes_DeberiaInvocarRepositorio() {
+    void deberiaListarPendientesInvocandoRepositorio() {
         when(historialCorreoRepositorio.findPendientesDeEnvio()).thenReturn(Arrays.asList());
         historialCorreoServicio.listarPendientes();
         verify(historialCorreoRepositorio, times(1)).findPendientesDeEnvio();
     }
 
     @Test
-    void listarConError_DeberiaInvocarRepositorio() {
+    void deberiaListarConErrorInvocandoRepositorio() {
         when(historialCorreoRepositorio.findConError()).thenReturn(Arrays.asList());
         historialCorreoServicio.listarConError();
         verify(historialCorreoRepositorio, times(1)).findConError();

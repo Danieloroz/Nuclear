@@ -1,0 +1,1060 @@
+{
+	"info": {
+		"_postman_id": "nuclearvet-complete-collection",
+		"name": "NuclearVET API - Colección Completa Verificada",
+		"description": "Colección completa verificada con todos los endpoints de NuclearVET.\nTodas las rutas, DTOs y enums han sido verificados contra el código fuente.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🔐 Autenticación",
+			"item": [
+				{
+					"name": "Iniciar Sesión",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('token', jsonData.token);",
+									"    console.log('Token guardado:', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correoElectronico\": \"admin@nuclearvet.com\",\n    \"contrasena\": \"Password123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/autenticacion/iniciar-sesion",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "iniciar-sesion"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cerrar Sesión",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/autenticacion/cerrar-sesion",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "cerrar-sesion"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correoElectronico\": \"admin@nuclearvet.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/autenticacion/recuperar-contrasena",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "recuperar-contrasena"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restablecer Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/autenticacion/restablecer-contrasena?token=TOKEN_RECUPERACION&nuevaContrasena=NuevaPass123!",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "restablecer-contrasena"],
+							"query": [
+								{
+									"key": "token",
+									"value": "TOKEN_RECUPERACION"
+								},
+								{
+									"key": "nuevaContrasena",
+									"value": "NuevaPass123!"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/autenticacion/validar-token?token={{token}}",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "validar-token"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Perfil",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/autenticacion/perfil",
+							"host": ["{{base_url}}"],
+							"path": ["autenticacion", "perfil"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "👥 Usuarios",
+			"item": [
+				{
+					"name": "Crear Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombreCompleto\": \"Dr. Carlos Veterinario\",\n    \"numeroDocumento\": \"1234567890\",\n    \"tipoDocumento\": \"CC\",\n    \"correoElectronico\": \"carlos@nuclearvet.com\",\n    \"telefono\": \"3001234567\",\n    \"direccion\": \"Calle 123 #45-67\",\n    \"ciudad\": \"Bogotá\",\n    \"departamento\": \"Cundinamarca\",\n    \"contrasena\": \"Password123!\",\n    \"rolId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios Activos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/activos",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "activos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuarios por Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/buscar?nombre=Carlos",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "buscar"],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Carlos"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios por Rol",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/rol/VETERINARIO",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "rol", "VETERINARIO"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombreCompleto\": \"Dr. Carlos Veterinario Actualizado\",\n    \"correoElectronico\": \"carlos.updated@nuclearvet.com\",\n    \"telefono\": \"3009876543\",\n    \"direccion\": \"Carrera 50 #20-30\",\n    \"ciudad\": \"Medellín\",\n    \"departamento\": \"Antioquia\",\n    \"activo\": true,\n    \"rolId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/usuarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cambiar Contraseña",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contrasenaActual\": \"Password123!\",\n    \"contrasenaNueva\": \"NewPassword456!\",\n    \"confirmacionContrasena\": \"NewPassword456!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/usuarios/1/cambiar-contrasena",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "1", "cambiar-contrasena"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activar Usuario",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/1/activar",
+							"host": ["{{base_url}}"],
+							"path": ["usuarios", "1", "activar"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🏠 Propietarios",
+			"item": [
+				{
+					"name": "Crear Propietario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoIdentificacion\": \"CEDULA_CIUDADANIA\",\n    \"numeroIdentificacion\": \"1023456789\",\n    \"nombres\": \"Juan Carlos\",\n    \"apellidos\": \"Pérez García\",\n    \"telefonoPrincipal\": \"3101234567\",\n    \"telefonoSecundario\": \"6012345678\",\n    \"correoElectronico\": \"juan.perez@example.com\",\n    \"direccion\": \"Calle 100 #15-20 Apto 501\",\n    \"ciudad\": \"Bogotá\",\n    \"departamento\": \"Cundinamarca\",\n    \"codigoPostal\": \"110111\",\n    \"ocupacion\": \"Ingeniero\",\n    \"observaciones\": \"Cliente preferencial\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/propietarios",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios"]
+						},
+						"description": "Valores válidos para tipoIdentificacion:\n- CEDULA_CIUDADANIA\n- CEDULA_EXTRANJERIA\n- PASAPORTE\n- NIT\n- TARJETA_IDENTIDAD\n- REGISTRO_CIVIL"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Propietarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Propietarios Activos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/activos",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "activos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Propietario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por Identificación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/identificacion/1023456789",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "identificacion", "1023456789"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Propietarios por Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/buscar?termino=Juan",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "buscar"],
+							"query": [
+								{
+									"key": "termino",
+									"value": "Juan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar por Ciudad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/ciudad/Bogotá",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "ciudad", "Bogotá"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Tipo Identificación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/tipo-identificacion/CEDULA_CIUDADANIA",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "tipo-identificacion", "CEDULA_CIUDADANIA"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Propietarios con Pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/con-pacientes",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "con-pacientes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Propietario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombres\": \"Juan Carlos\",\n    \"apellidos\": \"Pérez López\",\n    \"telefonoPrincipal\": \"3109876543\",\n    \"correoElectronico\": \"juan.perez.updated@example.com\",\n    \"direccion\": \"Carrera 7 #80-45\",\n    \"ciudad\": \"Bogotá\",\n    \"departamento\": \"Cundinamarca\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/propietarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivar Propietario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activar Propietario",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/1/activar",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "1", "activar"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contar Propietarios Activos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/propietarios/contar/activos",
+							"host": ["{{base_url}}"],
+							"path": ["propietarios", "contar", "activos"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🐾 Pacientes",
+			"item": [
+				{
+					"name": "Crear Paciente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Firulais\",\n    \"especie\": \"CANINO\",\n    \"raza\": \"Labrador Retriever\",\n    \"fechaNacimiento\": \"2020-05-15\",\n    \"sexo\": \"MACHO\",\n    \"color\": \"Dorado\",\n    \"peso\": 28.5,\n    \"microchip\": \"982000123456789\",\n    \"esterilizado\": true,\n    \"alergias\": \"Ninguna conocida\",\n    \"observaciones\": \"Muy activo y sociable\",\n    \"fotoUrl\": \"\",\n    \"propietarioId\": 1,\n    \"veterinarioAsignadoId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/pacientes",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes"]
+						},
+						"description": "Valores válidos para especie:\n- CANINO\n- FELINO\n- AVE\n- ROEDOR\n- REPTIL\n- CONEJO\n- EXOTICO\n- OTRO\n\nValores válidos para sexo:\n- MACHO\n- HEMBRA\n- INDEFINIDO"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Paciente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes/1",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Propietario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes/propietario/1",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "propietario", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes/buscar?termino=Firulais",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "buscar"],
+							"query": [
+								{
+									"key": "termino",
+									"value": "Firulais"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Especie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes/especie/CANINO",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "especie", "CANINO"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Paciente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Firulais Jr.\",\n    \"peso\": 30.2,\n    \"color\": \"Dorado claro\",\n    \"observaciones\": \"Actualización de peso y observaciones\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/pacientes/1",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivar Paciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pacientes/1",
+							"host": ["{{base_url}}"],
+							"path": ["pacientes", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📅 Citas",
+			"item": [
+				{
+					"name": "Crear Cita",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pacienteId\": 1,\n    \"veterinarioId\": 2,\n    \"fechaHora\": \"2025-12-15T10:00:00\",\n    \"duracionEstimada\": 30,\n    \"tipoCita\": \"CONSULTA_GENERAL\",\n    \"motivoConsulta\": \"Control de rutina y vacunación\",\n    \"observaciones\": \"Primera cita del mes\",\n    \"prioridad\": \"NORMAL\",\n    \"costoConsulta\": 50000,\n    \"enviarRecordatorio\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/citas",
+							"host": ["{{base_url}}"],
+							"path": ["citas"]
+						},
+						"description": "Valores válidos para tipoCita:\n- CONSULTA_GENERAL\n- VACUNACION\n- CONTROL\n- CIRUGIA\n- EMERGENCIA\n- DESPARASITACION\n- ESTETICA\n- LABORATORIO\n- IMAGENOLOGIA\n- OTRO\n\nValores válidos para prioridad:\n- NORMAL\n- ALTA\n- URGENTE\n- EMERGENCIA"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Cita por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/1",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Citas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas",
+							"host": ["{{base_url}}"],
+							"path": ["citas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Estado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/estado/PENDIENTE",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "estado", "PENDIENTE"]
+						},
+						"description": "Estados válidos:\n- PENDIENTE\n- CONFIRMADA\n- EN_CURSO\n- COMPLETADA\n- CANCELADA\n- NO_ASISTIO\n- REPROGRAMADA"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Paciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/paciente/1",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "paciente", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Veterinario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/veterinario/2",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "veterinario", "2"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Fecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/fecha/2025-12-15",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "fecha", "2025-12-15"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar Cita",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/1/confirmar",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "1", "confirmar"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Cita",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/citas/1?motivo=Cliente solicitó cancelación",
+							"host": ["{{base_url}}"],
+							"path": ["citas", "1"],
+							"query": [
+								{
+									"key": "motivo",
+									"value": "Cliente solicitó cancelación"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🩺 Consultas",
+			"item": [
+				{
+					"name": "Crear Consulta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"historiaClinicaId\": 1,\n    \"veterinarioId\": 2,\n    \"citaId\": 1,\n    \"fechaConsulta\": \"2025-11-21T14:00:00\",\n    \"motivoConsulta\": \"Control de vacunación y revisión general\",\n    \"sintomas\": \"Ninguno. Control de rutina\",\n    \"temperatura\": 38.5,\n    \"peso\": 28.5,\n    \"frecuenciaCardiaca\": 110,\n    \"frecuenciaRespiratoria\": 25,\n    \"examenFisico\": \"Paciente en buen estado general. Sin alteraciones evidentes.\",\n    \"diagnostico\": \"Paciente sano. Control preventivo\",\n    \"tratamiento\": \"Aplicación de vacuna antirrábica\",\n    \"medicamentos\": \"Vacuna antirrábica - Dosis única\",\n    \"examenesSolicitados\": \"Ninguno\",\n    \"recomendaciones\": \"Continuar con alimentación balanceada. Próximo control en 6 meses.\",\n    \"proximaCita\": \"2026-05-21T14:00:00\",\n    \"observaciones\": \"Paciente colaborador durante la consulta\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/consultas",
+							"host": ["{{base_url}}"],
+							"path": ["consultas"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📦 Inventario - Productos",
+			"item": [
+				{
+					"name": "Crear Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"MED-001\",\n    \"nombre\": \"Amoxicilina 500mg\",\n    \"descripcion\": \"Antibiótico de amplio espectro\",\n    \"tipoProducto\": \"MEDICAMENTO\",\n    \"unidadMedida\": \"TABLETA\",\n    \"precioCompra\": 15000,\n    \"precioVenta\": 25000,\n    \"stockMinimo\": 50,\n    \"stockActual\": 200,\n    \"ubicacion\": \"Estante A3\",\n    \"requiereRefrigeracion\": false,\n    \"requiereReceta\": true,\n    \"activo\": true,\n    \"observaciones\": \"Mantener en lugar fresco y seco\",\n    \"categoriaId\": 1,\n    \"proveedorId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/inventario/productos",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos"]
+						},
+						"description": "Valores válidos para tipoProducto:\n- MEDICAMENTO\n- VACUNA\n- SUPLEMENTO\n- ALIMENTO\n- ACCESORIO\n- MATERIAL_QUIRURGICO\n- MATERIAL_DIAGNOSTICO\n- HIGIENE\n- OTRO\n\nValores válidos para unidadMedida:\n- UNIDAD\n- CAJA\n- FRASCO\n- AMPOLLA\n- TABLETA\n- CAPSULA\n- SOBRE\n- KILOGRAMO\n- GRAMO\n- LITRO\n- MILILITRO\n- METRO\n- CENTIMETRO"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Producto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"MED-001\",\n    \"nombre\": \"Amoxicilina 500mg - Actualizado\",\n    \"descripcion\": \"Antibiótico de amplio espectro - Nueva presentación\",\n    \"tipoProducto\": \"MEDICAMENTO\",\n    \"unidadMedida\": \"TABLETA\",\n    \"precioCompra\": 16000,\n    \"precioVenta\": 27000,\n    \"stockMinimo\": 60,\n    \"ubicacion\": \"Estante A4\",\n    \"requiereRefrigeracion\": false,\n    \"requiereReceta\": true,\n    \"activo\": true,\n    \"categoriaId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/1",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/1",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por Código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/codigo/MED-001",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "codigo", "MED-001"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Activos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/activos",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "activos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/buscar?termino=Amoxicilina",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "buscar"],
+							"query": [
+								{
+									"key": "termino",
+									"value": "Amoxicilina"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Categoría",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/categoria/1",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "categoria", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Tipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/tipo/MEDICAMENTO",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "tipo", "MEDICAMENTO"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos Stock Bajo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/stock-bajo",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "stock-bajo"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos Agotados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/agotados",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "agotados"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/1",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activar Producto",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/inventario/productos/1/activar",
+							"host": ["{{base_url}}"],
+							"path": ["inventario", "productos", "1", "activar"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

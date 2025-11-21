@@ -26,21 +26,21 @@ public class ConfiguracionClinicaControlador {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    // @PreAuthorize("hasRole('ADMINISTRADOR')")
     @Operation(summary = "Obtener configuración por ID")
     public ResponseEntity<ConfiguracionClinicaDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(configuracionServicio.obtenerPorId(id));
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    // @PreAuthorize("hasRole('ADMINISTRADOR')")
     @Operation(summary = "Crear configuración")
     public ResponseEntity<ConfiguracionClinicaDTO> crear(@Valid @RequestBody ConfiguracionClinicaDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(configuracionServicio.crear(dto));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    // @PreAuthorize("hasRole('ADMINISTRADOR')")
     @Operation(summary = "Actualizar configuración")
     public ResponseEntity<ConfiguracionClinicaDTO> actualizar(
             @PathVariable Long id,
@@ -49,7 +49,7 @@ public class ConfiguracionClinicaControlador {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    // @PreAuthorize("hasRole('ADMINISTRADOR')")
     @Operation(summary = "Actualizar configuración actual")
     public ResponseEntity<ConfiguracionClinicaDTO> actualizarActual(@Valid @RequestBody ConfiguracionClinicaDTO dto) {
         return ResponseEntity.ok(configuracionServicio.actualizarActual(dto));

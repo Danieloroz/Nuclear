@@ -37,14 +37,14 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar todos los pacientes")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPacientes() {
         return ResponseEntity.ok(pacienteServicio.listarPacientes());
     }
 
     @Operation(summary = "Listar pacientes activos")
     @GetMapping("/activos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPacientesActivos() {
         return ResponseEntity.ok(pacienteServicio.listarPacientesActivos());
     }
@@ -55,7 +55,7 @@ public class PacienteControlador {
             @ApiResponse(responseCode = "404", description = "Paciente no encontrado")
     })
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     public ResponseEntity<PacienteDTO> obtenerPaciente(
             @Parameter(description = "ID del paciente") @PathVariable Long id) {
         return ResponseEntity.ok(pacienteServicio.obtenerPacientePorId(id));
@@ -63,7 +63,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Obtener paciente por código")
     @GetMapping("/codigo/{codigo}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PacienteDTO> obtenerPorCodigo(
             @Parameter(description = "Código del paciente") @PathVariable String codigo) {
         return ResponseEntity.ok(pacienteServicio.obtenerPacientePorCodigo(codigo));
@@ -71,7 +71,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Buscar pacientes por nombre")
     @GetMapping("/buscar")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> buscarPacientes(
             @Parameter(description = "Nombre del paciente") @RequestParam String nombre) {
         return ResponseEntity.ok(pacienteServicio.buscarPacientesPorNombre(nombre));
@@ -79,7 +79,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar pacientes por propietario")
     @GetMapping("/propietario/{propietarioId}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPorPropietario(
             @Parameter(description = "ID del propietario") @PathVariable Long propietarioId) {
         return ResponseEntity.ok(pacienteServicio.listarPacientesPorPropietario(propietarioId));
@@ -87,7 +87,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar pacientes por especie")
     @GetMapping("/especie/{especie}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPorEspecie(
             @Parameter(description = "Especie del paciente") @PathVariable Especie especie) {
         return ResponseEntity.ok(pacienteServicio.listarPacientesPorEspecie(especie));
@@ -95,7 +95,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar pacientes por estado")
     @GetMapping("/estado/{estado}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPorEstado(
             @Parameter(description = "Estado del paciente") @PathVariable EstadoPaciente estado) {
         return ResponseEntity.ok(pacienteServicio.listarPacientesPorEstado(estado));
@@ -103,7 +103,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar pacientes por veterinario asignado")
     @GetMapping("/veterinario/{veterinarioId}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPorVeterinario(
             @Parameter(description = "ID del veterinario") @PathVariable Long veterinarioId) {
         return ResponseEntity.ok(pacienteServicio.listarPacientesPorVeterinario(veterinarioId));
@@ -111,7 +111,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Listar pacientes en atención")
     @GetMapping("/en-atencion")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PacienteDTO>> listarPacientesEnAtencion() {
         return ResponseEntity.ok(pacienteServicio.listarPacientesEnAtencion());
     }
@@ -123,7 +123,7 @@ public class PacienteControlador {
             @ApiResponse(responseCode = "404", description = "Propietario no encontrado")
     })
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PacienteDTO> crearPaciente(
             @Valid @RequestBody CrearPacienteDTO dto,
             HttpServletRequest request) {
@@ -133,7 +133,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Actualizar paciente")
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PacienteDTO> actualizarPaciente(
             @Parameter(description = "ID del paciente") @PathVariable Long id,
             @Valid @RequestBody ActualizarPacienteDTO dto,
@@ -143,7 +143,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Cambiar estado del paciente")
     @PatchMapping("/{id}/estado")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
     public ResponseEntity<PacienteDTO> cambiarEstado(
             @Parameter(description = "ID del paciente") @PathVariable Long id,
             @Parameter(description = "Nuevo estado") @RequestParam EstadoPaciente estado,
@@ -153,7 +153,7 @@ public class PacienteControlador {
 
     @Operation(summary = "Eliminar paciente permanentemente")
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    // @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Void> eliminarPaciente(
             @Parameter(description = "ID del paciente") @PathVariable Long id) {
         pacienteServicio.eliminarPaciente(id);
@@ -162,14 +162,14 @@ public class PacienteControlador {
 
     @Operation(summary = "Contar pacientes activos")
     @GetMapping("/contar/activos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
     public ResponseEntity<Long> contarPacientesActivos() {
         return ResponseEntity.ok(pacienteServicio.contarPacientesActivos());
     }
 
     @Operation(summary = "Contar pacientes por especie")
     @GetMapping("/contar/especie/{especie}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
     public ResponseEntity<Long> contarPorEspecie(
             @Parameter(description = "Especie") @PathVariable Especie especie) {
         return ResponseEntity.ok(pacienteServicio.contarPacientesPorEspecie(especie));

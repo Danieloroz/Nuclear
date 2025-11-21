@@ -27,7 +27,7 @@ class NotificacionServicioTest {
     private NotificacionServicio notificacionServicio;
 
     @Test
-    void listarPorUsuario_DeberiaInvocarRepositorio() {
+    void deberiaListarPorUsuarioInvocandoRepositorio() {
         Long usuarioId = 1L;
         when(notificacionRepositorio.findByUsuarioOrdenadas(usuarioId)).thenReturn(Arrays.asList());
         notificacionServicio.listarPorUsuario(usuarioId);
@@ -35,7 +35,7 @@ class NotificacionServicioTest {
     }
 
     @Test
-    void listarNoLeidasPorUsuario_DeberiaInvocarRepositorio() {
+    void deberiaListarNoLeidasPorUsuarioInvocandoRepositorio() {
         Long usuarioId = 1L;
         when(notificacionRepositorio.findNoLeidasPorUsuario(usuarioId)).thenReturn(Arrays.asList());
         notificacionServicio.listarNoLeidasPorUsuario(usuarioId);
@@ -43,7 +43,7 @@ class NotificacionServicioTest {
     }
 
     @Test
-    void listarPorUsuarioYTipo_DeberiaInvocarRepositorio() {
+    void deberiaListarPorUsuarioYTipoInvocandoRepositorio() {
         Long usuarioId = 1L;
         TipoNotificacion tipo = TipoNotificacion.CITA;
         when(notificacionRepositorio.findByUsuarioYTipo(usuarioId, tipo)).thenReturn(Arrays.asList());
@@ -52,7 +52,7 @@ class NotificacionServicioTest {
     }
 
     @Test
-    void listarNoLeidasPorUsuarioYPrioridad_DeberiaInvocarRepositorio() {
+    void deberiaListarNoLeidasPorUsuarioYPrioridadInvocandoRepositorio() {
         Long usuarioId = 1L;
         PrioridadNotificacion prioridad = PrioridadNotificacion.ALTA;
         when(notificacionRepositorio.findNoLeidasPorUsuarioYPrioridad(usuarioId, prioridad)).thenReturn(Arrays.asList());
@@ -61,7 +61,7 @@ class NotificacionServicioTest {
     }
 
     @Test
-    void listarRecientesPorUsuario_DeberiaInvocarRepositorio() {
+    void deberiaListarRecientesPorUsuarioInvocandoRepositorio() {
         Long usuarioId = 1L;
         int dias = 7;
         when(notificacionRepositorio.findRecientesPorUsuario(eq(usuarioId), any())).thenReturn(Arrays.asList());

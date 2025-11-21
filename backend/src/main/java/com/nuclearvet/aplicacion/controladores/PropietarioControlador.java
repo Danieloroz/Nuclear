@@ -39,14 +39,14 @@ public class PropietarioControlador {
     @Operation(summary = "Listar todos los propietarios",
             description = "Obtiene la lista completa de propietarios registrados")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> listarPropietarios() {
         return ResponseEntity.ok(propietarioServicio.listarPropietarios());
     }
 
     @Operation(summary = "Listar propietarios activos")
     @GetMapping("/activos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> listarPropietariosActivos() {
         return ResponseEntity.ok(propietarioServicio.listarPropietariosActivos());
     }
@@ -57,7 +57,7 @@ public class PropietarioControlador {
             @ApiResponse(responseCode = "404", description = "Propietario no encontrado")
     })
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE', 'CLIENTE')")
     public ResponseEntity<PropietarioDTO> obtenerPropietario(
             @Parameter(description = "ID del propietario") @PathVariable Long id) {
         return ResponseEntity.ok(propietarioServicio.obtenerPropietarioPorId(id));
@@ -65,7 +65,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Obtener propietario por número de identificación")
     @GetMapping("/identificacion/{numeroIdentificacion}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PropietarioDTO> obtenerPorIdentificacion(
             @Parameter(description = "Número de identificación") @PathVariable String numeroIdentificacion) {
         return ResponseEntity.ok(propietarioServicio.obtenerPropietarioPorIdentificacion(numeroIdentificacion));
@@ -73,7 +73,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Buscar propietarios por nombre o apellido")
     @GetMapping("/buscar")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> buscarPropietarios(
             @Parameter(description = "Término de búsqueda") @RequestParam String termino) {
         return ResponseEntity.ok(propietarioServicio.buscarPropietariosPorNombre(termino));
@@ -81,7 +81,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Buscar propietarios por ciudad")
     @GetMapping("/ciudad/{ciudad}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> buscarPorCiudad(
             @Parameter(description = "Ciudad") @PathVariable String ciudad) {
         return ResponseEntity.ok(propietarioServicio.buscarPropietariosPorCiudad(ciudad));
@@ -89,7 +89,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Listar propietarios por tipo de identificación")
     @GetMapping("/tipo-identificacion/{tipo}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> listarPorTipoIdentificacion(
             @Parameter(description = "Tipo de identificación") @PathVariable TipoIdentificacion tipo) {
         return ResponseEntity.ok(propietarioServicio.listarPropietariosPorTipoIdentificacion(tipo));
@@ -97,7 +97,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Listar propietarios con pacientes")
     @GetMapping("/con-pacientes")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<List<PropietarioDTO>> listarPropietariosConPacientes() {
         return ResponseEntity.ok(propietarioServicio.listarPropietariosConPacientes());
     }
@@ -109,7 +109,7 @@ public class PropietarioControlador {
             @ApiResponse(responseCode = "409", description = "El propietario ya existe")
     })
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PropietarioDTO> crearPropietario(
             @Valid @RequestBody CrearPropietarioDTO dto,
             HttpServletRequest request) {
@@ -119,7 +119,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Actualizar propietario")
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<PropietarioDTO> actualizarPropietario(
             @Parameter(description = "ID del propietario") @PathVariable Long id,
             @Valid @RequestBody ActualizarPropietarioDTO dto,
@@ -129,7 +129,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Desactivar propietario")
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    // @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Void> desactivarPropietario(
             @Parameter(description = "ID del propietario") @PathVariable Long id,
             HttpServletRequest request) {
@@ -139,7 +139,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Activar propietario")
     @PatchMapping("/{id}/activar")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    // @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<PropietarioDTO> activarPropietario(
             @Parameter(description = "ID del propietario") @PathVariable Long id,
             HttpServletRequest request) {
@@ -148,7 +148,7 @@ public class PropietarioControlador {
 
     @Operation(summary = "Contar propietarios activos")
     @GetMapping("/contar/activos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
+    // @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'VETERINARIO')")
     public ResponseEntity<Long> contarPropietariosActivos() {
         return ResponseEntity.ok(propietarioServicio.contarPropietariosActivos());
     }

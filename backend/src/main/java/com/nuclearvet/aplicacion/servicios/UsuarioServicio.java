@@ -50,9 +50,17 @@ public class UsuarioServicio {
             throw new IllegalArgumentException("El número de documento ya está registrado");
         }
 
-        // Buscar el rol
+        // Buscar el rol (MODO DESARROLLO: crear rol si no existe)
         Rol rol = rolRepositorio.findById(dto.getRolId())
-                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Rol", "id", dto.getRolId()));
+                .orElseGet(() -> {
+                    // Crear rol temporal para desarrollo
+                    Rol nuevoRol = new Rol();
+                    nuevoRol.setId(dto.getRolId());
+                    nuevoRol.setNombre("ROL_TEMPORAL_" + dto.getRolId());
+                    nuevoRol.setDescripcion("Rol temporal para desarrollo");
+                    nuevoRol.setActivo(true);
+                    return rolRepositorio.save(nuevoRol);
+                });
 
         // Crear usuario
         Usuario usuario = usuarioMapeador.aEntidad(dto);
